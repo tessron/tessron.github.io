@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tessron — Securing the Agentic web</title>
+    <meta name="description" content="Human enforcement for AI browser agents. Define what your agent can do — Tessron enforces it.">
+    <meta property="og:title" content="Tessron">
+    <meta property="og:description" content="Securing the Agentic web">
+    <meta property="og:image" content="https://tessron.com/logo.png">
+    <meta property="og:url" content="https://tessron.com">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@TessronAI">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background: #08090a;
+            color: #a0a4a8;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        .container {
+            text-align: center;
+        }
+        .logo {
+            width: 224px;
+            height: 224px;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            flex-shrink: 0;
+        }
+        h1 {
+            font-size: 2.4rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            color: #eef0f2;
+            margin-bottom: 1.2rem;
+        }
+        p {
+            font-size: 0.85rem;
+            line-height: 1.7;
+            margin-bottom: 2.5rem;
+            color: #5a5f66;
+        }
+        form {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+        input {
+            padding: 0.75rem 1rem;
+            font-family: inherit;
+            font-size: 0.8rem;
+            border: 1px solid #555;
+            border-radius: 4px;
+            background: #0f1012;
+            color: #eef0f2;
+            width: 240px;
+            outline: none;
+        }
+        input:focus { border-color: #333; }
+        input::placeholder { color: #666; }
+        button {
+            padding: 0.75rem 1.2rem;
+            font-family: inherit;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid #aaa;
+            border-radius: 4px;
+            background: transparent;
+            color: #eef0f2;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        button:hover {
+            background: #00d4aa;
+            color: #08090a;
+        }
+        @media (max-width: 500px) {
+            form { flex-direction: column; align-items: center; }
+            input { width: 100%; max-width: 280px; }
+        }
+    </style>
+</head>
+<body>
+    <div style="flex: 1"></div>
+    <img src="logo.png" alt="Tessron" class="logo">
+    <div class="container">
+        <h1>TESSRON</h1>
+        <p>Securing the Agentic web</p>
+        <form onsubmit="return handleSignup(event)">
+            <input type="email" placeholder="you@company.com" required>
+            <input type="text" name="website" style="position:absolute;left:-9999px;opacity:0;height:0" tabindex="-1" autocomplete="off">
+            <button type="submit">Early Access</button>
+        </form>
+    </div>
+    <div style="flex: 2"></div>
+    <script>
+        function handleSignup(e) {
+            e.preventDefault();
+            const input = e.target.querySelector('input');
+            const btn = e.target.querySelector('button');
+            const email = input.value;
+            const honeypot = e.target.querySelector('input[name="website"]');
+            if (honeypot.value) return;
+            fetch('https://docs.google.com/forms/d/e/1FAIpQLSf2O9YJ6r7viPOKouYvqadRgUko_8QYoOT9lLJbfDUIdmId8Q/formResponse', {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: 'entry.1545482161=' + encodeURIComponent(email)
+            });
+            input.value = '';
+            btn.style.minWidth = btn.offsetWidth + 'px';
+            btn.textContent = 'Sent ✓';
+            setTimeout(() => { btn.textContent = 'Early Access'; }, 2500);
+        }
+    </script>
+</body>
+</html>
